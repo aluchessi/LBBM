@@ -1,0 +1,13 @@
+res<-read.table("DB.txt",sep="",header=TRUE)
+summary(res)
+
+library(SNPassoc)
+SNPs<-setupSNP(res,4:38,sep="")
+summary(SNPs)
+
+tableHWE(SNPs,gstt1)
+
+WGassociation(gstt1~1,SNPs)
+ans<-WGassociation(gstt1,SNPs)
+ans
+plot(ans)
