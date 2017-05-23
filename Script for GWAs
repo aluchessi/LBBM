@@ -11,3 +11,24 @@ WGassociation(gstt1~1,SNPs)
 ans<-WGassociation(gstt1,SNPs)
 ans
 plot(ans)
+
+
+
+scanWGassociation(clopi30~1,data=SNPs,model="do",nperm=100)
+ans<-scanWGassociation(clopi30~1,data=SNPs,model="do",nperm=100)
+pPerm<-permTest(ans)
+print(pPerm)
+plot(pPerm)
+
+
+
+tag.SNPs<-c("rs3758580","rs4244285","rs10509679")
+summary(tag.SNPs)
+geno<-make.geno(SNPs,tag.SNPs)
+mod<-haplo.glm(clopi30~geno,data=SNPs, 
+      family=binomial, 
+	locus.label=tag.SNPs,
+	allele.lev=attributes(geno)$unique.alleles,
+	control=haplo.glm.control(haplo.freq.min=0.05))
+mod
+intervals(mod)
